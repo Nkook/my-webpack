@@ -20,5 +20,14 @@ module.exports = {
    filename: '[name].js'
  },
  // 环境：线上环境
- mode: 'production'
+ mode: 'production',
+  // loader
+  module: {
+    rules: [
+      {
+        test: /.js$/,
+        use: 'babel-loader'
+      }
+    ]
+  }
 }
