@@ -21,7 +21,7 @@ module.exports = {
  },
  // 环境：线上环境
  mode: 'production',
-  // loader
+  // loader配置
   module: {
     rules: [
       {
