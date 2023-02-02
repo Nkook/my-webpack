@@ -27,6 +27,13 @@ module.exports = {
       {
         test: /.js$/,
         use: 'babel-loader'
+      },
+      {
+        test: /.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ] // loader的调用是链式调用，执行顺序是从右到左的，所以会先执行css-loader去解析css，再将解析好的css传递给style-loader
       }
     ]
   }
