@@ -43,9 +43,22 @@ module.exports = {
           'less-loader'
         ]
       },
+      // {
+      //   test: /.(png|jpg|gif|jpeg)$/,
+      //   use: 'file-loader'
+      // },
+      // url-loader和file-loader功能一样，它可以设置较小资源(小图片/小字体)自动转base64。url-loader内部也还是用了file-loader的。
+   		// 如何进行小资源base64的转换：url-loader接收一个参数，这个参数是通过options给loader进行一个传参，传的参数是limit:10240，limit的单位是字节。（如果图片大小小于10K的话，webpack打包的时候会自动做一个base64的转换）
       {
         test: /.(png|jpg|gif|jpeg)$/,
-        use: 'file-loader'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10240
+            }
+          }
+        ]
       },
       {
         test: /.(woff|woff2|eot|ttf|otf)$/,
