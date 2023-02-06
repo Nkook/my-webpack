@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 
 module.exports = {
  // 单入口文件
@@ -19,8 +20,9 @@ module.exports = {
    path: path.join(__dirname, 'dist'),
    filename: '[name].js'
  },
- // 环境：线上环境
- mode: 'production',
+  // 环境：线上环境
+  // 热更新在开发环境使用 
+  mode: 'development',
   // loader配置
   module: {
     rules: [
@@ -65,5 +67,13 @@ module.exports = {
         use: 'file-loader'
       }
     ]
+  },
+  // 插件
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devServer: {
+    contentBase: './dist',
+    hot: true
   }
 }
