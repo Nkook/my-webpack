@@ -1,6 +1,8 @@
 const { options } = require('less');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
@@ -86,6 +88,39 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name]_[contenthash:8].css'
+    }),
+    // new OptimizeCSSAssetsPlugin({
+    //   assetNameRegExp: /\.css$/g,
+    //   cssProcessor: require('cssnano')
+    // }),
+    // 一个html页面需要对应一个HtmlWebpackPlugin: 后面讲多页面打包该怎么做
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src/index.html'), // html模板所在的位置
+      filename:'index.html', // 指定打包出来的文件名称
+      chunks: ['index'], // 生成的html需要使用哪些chunks
+      inject: true, // 打包出来的chunks会自动注入到这个html中
+      minify: {
+        html5: true,
+        collapseWhitespace: true,
+        preserveLineBreaks: false,
+        minifvcss: true,
+        minifyjS: true,
+        removeComments: false
+      }
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src/search.html'), // html模板所在的位置
+      filename:'search.html', // 指定打包出来的文件名称
+      chunks: ['search'], // 生成的html需要使用哪些chunks
+      inject: true, // 打包出来的chunks会自动注入到这个html中
+      minify: {
+        html5: true,
+        collapseWhitespace: true,
+        preserveLineBreaks: false,
+        minifvcss: true,
+        minifyjS: true,
+        removeComments: false
+      }
     })
   ]
 }
